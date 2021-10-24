@@ -1,0 +1,112 @@
+# @method_decorator(csrf_exempt, name='dispatch')
+# class UnitView(CRUDObject):
+#     table_name = 'unit'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class MachineTypeView(CRUDObject):
+#     table_name = 'machinetype'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ComponentView(CRUDObject):
+#     table_name = 'component'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ComponentTypeView(CRUDObject):
+#     table_name = 'componenttype'
+#     pk_name = 'id'
+#     relation = Relation(RelationType.MANY_TO_MANY, 'node', 'composition')
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ToolView(CRUDObject):
+#     table_name = 'tool'
+#     pk_name = 'id'
+#     relation = Relation(RelationType.MANY_TO_MANY, 'machine', 'requiredtools')
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class MachineView(CRUDObject):
+#     table_name = 'machine'
+#     pk_name = 'model'
+#     relation = Relation(RelationType.MANY_TO_MANY, 'tool', 'requiredtools')
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class NodeView(CRUDObject):
+#     table_name = 'node'
+#     pk_name = 'id'
+#     relation = Relation(RelationType.MANY_TO_MANY, 'component', 'composition')
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ShopTypeView(CRUDObject):
+#     table_name = 'shoptype'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ShopView(CRUDObject):
+#     table_name = 'shop'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class EmployeeView(CRUDObject):
+#     table_name = 'employee'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class CustomerView(CRUDObject):
+#     table_name = 'customer'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class WarrantyView(CRUDObject):
+#     table_name = 'warranty'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class OrderTypeView(CRUDObject):
+#     table_name = 'ordertype'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class OrderView(CRUDObject):
+#     table_name = 'orders'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class ShipmentView(CRUDObject):
+#     table_name = 'shipment'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class UserView(CRUDObject):
+#     table_name = 'users'
+#     pk_name = 'id'
+#     model = Users
+#     serializer = UsersSerializer
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class RoleView(CRUDObject):
+#     table_name = 'roles'
+#     pk_name = 'id'
+#
+#
+# @method_decorator(csrf_exempt, name='dispatch')
+# class RepairApplView(CRUDObject):
+#     table_name = 'repairappl'
+#     pk_name = 'id'
