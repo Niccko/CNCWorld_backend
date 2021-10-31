@@ -21,6 +21,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), ),
     path('tables/', get_table_list_view),
+    path('table_desc/<str:table_name>', get_table_desc),
     path('select/<str:table_name>', SelectView.as_view()),
     path('insert/<str:table_name>', InsertView.as_view()),
     path('delete/<str:table_name>', DeleteView.as_view()),
