@@ -36,11 +36,9 @@ class SelectView(APIView):
         limit = f"LIMIT {data['limit']}" if data and data.get('limit') else ''
         order = f"ORDER BY {','.join(data['order_by'])}" if data and data.get('order_by') else ''
         where = f"WHERE {data['filter']}" if data and data.get('filter') else ''
-        field_list = model._meta.pk.name + ","
-        field_list += ",".join(data['fields']) if data and data.get('fields') else '*'
-        data_query = f"SELECT {field_list} FROM {table_name} {where} {order} {limit}"
+        field_list = [model._meta.pk.name] + data['fields'] if data and data.get('fields') else [f.name for f in model._meta.fields]
+        data_query = f"SELECT * FROM {table_name} {where} {order} {limit}"
         objects = serializer(model.objects.raw(data_query), many=True).data
-        print(field_list)
         for ent in objects:
             for key in list(ent.keys()):
                 if key not in field_list:
