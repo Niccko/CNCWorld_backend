@@ -29,7 +29,7 @@ def get_table_desc(request, table_name):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SelectView(APIView):
-    def get(self, request, table_name):
+    def post(self, request, table_name):
         serializer = name_to_serializer[table_name]
         model = serializer.Meta.model
         data = json.loads(request.body) if request.body else None
