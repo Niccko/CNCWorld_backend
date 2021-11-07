@@ -3,7 +3,7 @@ from django.db.models import *
 
 
 class MachineType(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     typename = CharField(max_length=255)
 
     class Meta:
@@ -11,7 +11,7 @@ class MachineType(Model):
 
 
 class ComponentType(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
 
     class Meta:
@@ -19,7 +19,7 @@ class ComponentType(Model):
 
 
 class Component(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     quantity = IntegerField()
     price = IntegerField()
@@ -31,7 +31,7 @@ class Component(Model):
 
 
 class Tool(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
 
     class Meta:
@@ -51,7 +51,7 @@ class Machine(Model):
 
 
 class Unit(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     allowed = BooleanField()
     status = CharField(max_length=255)
     date_manufactured = DateField(db_column='datemanufactured')
@@ -62,7 +62,7 @@ class Unit(Model):
 
 
 class Node(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     blueprint = CharField(max_length=255)
     model_machine = ForeignKey(Machine, on_delete=CASCADE, db_column='model_machine')
@@ -88,7 +88,7 @@ class RequiredTools(Model):
 
 
 class ShopType(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     type = CharField(max_length=255, db_column='type')
 
     class Meta:
@@ -96,7 +96,7 @@ class ShopType(Model):
 
 
 class Shop(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     address = CharField(max_length=255)
     phone = CharField(max_length=255)
     id_ShopType = ForeignKey(ShopType, on_delete=CASCADE, db_column='id_shoptype')
@@ -106,7 +106,7 @@ class Shop(Model):
 
 
 class Employee(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     salary = IntegerField()
     id_Shop = ForeignKey(Shop, on_delete=CASCADE, db_column='id_shop')
@@ -116,7 +116,7 @@ class Employee(Model):
 
 
 class Customer(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     phone = CharField(max_length=255)
     email = CharField(max_length=255)
@@ -127,7 +127,7 @@ class Customer(Model):
 
 
 class Warranty(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     expiredate = DateField()
 
     class Meta:
@@ -135,7 +135,7 @@ class Warranty(Model):
 
 
 class OrderType(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
 
     class Meta:
@@ -143,7 +143,7 @@ class OrderType(Model):
 
 
 class Orders(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     date = DateField()
     status = CharField(max_length=255)
     id_Employee = ForeignKey(Employee, on_delete=CASCADE, db_column='id_employee')
@@ -156,7 +156,7 @@ class Orders(Model):
 
 
 class Shipment(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     price = IntegerField()
     comment = CharField(max_length=255)
     id_Customer = ForeignKey(Customer, on_delete=CASCADE, db_column='id_customer')
@@ -166,7 +166,7 @@ class Shipment(Model):
 
 
 class Roles(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     name = CharField(max_length=255)
 
     class Meta:
@@ -174,7 +174,7 @@ class Roles(Model):
 
 
 class Users(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     password = CharField(max_length=255)
     id_customer = ForeignKey(Customer, on_delete=CASCADE, db_column='id_customer')
     roles = ManyToManyField(Roles, through='UserRoles', through_fields=['id_user', 'id_roles'])
@@ -184,7 +184,7 @@ class Users(Model):
 
 
 class UserRoles(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     id_user = ForeignKey(Users, on_delete=CASCADE, db_column='id_user')
     id_roles = ForeignKey(Roles, on_delete=CASCADE, db_column='id_roles')
 
@@ -193,7 +193,7 @@ class UserRoles(Model):
 
 
 class RepairAppl(Model):
-    id = IntegerField(primary_key=True)
+    id = AutoField(primary_key=True)
     comment = CharField(max_length=255)
     date = DateField()
     status = CharField(max_length=255)
