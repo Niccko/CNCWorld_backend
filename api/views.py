@@ -32,14 +32,20 @@ class SelectView(APIView):
     def get(self, request, table_name):
         serializer = name_to_serializer[table_name]
         model = serializer.Meta.model
-        data = json.loads(request.body)  if request.body else None
+        data = json.loads(request.body) if request.body else None
         limit = f"LIMIT {data['limit']}" if data and data.get('limit') else ''
         order = f"ORDER BY {','.join(data['order_by'])}" if data and data.get('order_by') else ''
         where = f"WHERE {data['filter']}" if data and data.get('filter') else ''
-        field_list = ",".join(data['fields']) if data and data.get('fields') else '*'
+        field_list = model._meta.pk.name + ","
+        field_list += ",".join(data['fields']) if data and data.get('fields') else '*'
         data_query = f"SELECT {field_list} FROM {table_name} {where} {order} {limit}"
-        obj = model.objects.raw(data_query)
-        return JsonResponse(serializer(obj, many=True).data, safe=False)
+        objects = serializer(model.objects.raw(data_query), many=True).data
+        print(field_list)
+        for ent in objects:
+            for key in list(ent.keys()):
+                if key not in field_list:
+                    del ent[key]
+        return JsonResponse(objects, safe=False)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
