@@ -39,6 +39,7 @@ class SelectView(APIView):
         field_list = [model._meta.pk.name] + data['fields'] if data and data.get('fields') else [f.name for f in model._meta.fields]
         data_query = f"SELECT * FROM {table_name} {where} {order} {limit}"
         objects = serializer(model.objects.raw(data_query), many=True).data
+        print(field_list)
         for ent in objects:
             for key in list(ent.keys()):
                 if key not in field_list:
