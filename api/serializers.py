@@ -134,10 +134,6 @@ class RepairApplSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class InsertQuerySerializer(Serializer):
-    table_name = CharField(max_length=100)
-
-
 name_to_serializer = {
     "machinetype": MachineTypeSerializer,
     "componenttype": ComponentTypeSerializer,
