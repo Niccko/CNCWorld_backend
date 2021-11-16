@@ -42,8 +42,8 @@ def get_row_desc(table_name):
 
 def resolve_object(model, data, obj=None):
     if not obj:
-        if model.objects.filter(pk=data["id"]):
-            raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
+        # if model.objects.filter(pk=data["id"]):
+        #     raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
         obj = model()
     for key in data:
         field = model._meta.get_field(key)
