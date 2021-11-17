@@ -78,11 +78,13 @@ class DeleteView(APIView):
     def delete(self, request, table_name):
         serializer = name_to_serializer.get(table_name)
         model = serializer.Meta.model
-        pk = json.loads(request.body).get('id')
-        obj = model.objects.filter(id=pk)
-        if not obj:
-            return HttpResponse(f"Object of type '{table_name}' with id = '{pk}' does not exits.",
-                                status=status.HTTP_404_NOT_FOUND)
-        obj_ser = serializer(obj.first()).data
-        obj.first().delete()
-        return JsonResponse(obj_ser, safe=False)
+        pks = json.loads(request.body).get('ids')
+        result = []
+        for id in pks:
+            obj = model.objects.filter(id=id)
+            if not obj:
+                return HttpResponse(f"Object of type '{table_name}' with id = '{id}' does not exits.",
+                                    status=status.HTTP_404_NOT_FOUND)
+            result.append(serializer(obj.first()).data)
+            obj.first().delete()
+        return JsonResponse(result, safe=False)
