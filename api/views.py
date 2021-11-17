@@ -36,9 +36,10 @@ class SelectView(APIView):
         model = serializer.Meta.model
         data = json.loads(request.body) if request.body else None
         fields = data.get("fields")
-        fields.append("id")
+
         objects = serializer(model.objects.all(), many=True).data
         if fields and len(fields) > 0:
+            fields.append("id")
             for ent in objects:
                 for key in list(ent.keys()):
                     if key not in fields:
