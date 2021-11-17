@@ -8,12 +8,15 @@ from .serializers import *
 from django.db import connection
 
 
+
+
 def _dictfetchall(cursor):
     columns = [col[0] for col in cursor.description]
     return [
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
+
 
 def _process_input(data):
     for k in data:
@@ -34,9 +37,10 @@ def get_row_desc(table_name):
     field_list = model._meta.get_fields()
     result = []
     for field in field_list:
-        if not isinstance(field, ManyToOneRel):
+        if not isinstance(field, ManyToOneRel) and (model.Extra.custom_id | (field.name !="id")):
             rel = field.related_model.__name__.lower() if field.related_model else ""
-            result.append({"column_name": field.name, "related_to": rel})
+            many = isinstance(field, ManyToManyField)
+            result.append({"column_name": field.name, "related_to": rel, "many": many})
     return result
 
 

@@ -7,6 +7,7 @@ class MachineType(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "machinetype"
@@ -18,6 +19,7 @@ class ComponentType(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "componenttype"
@@ -33,6 +35,7 @@ class Component(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "component"
@@ -44,6 +47,7 @@ class Tool(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "tool"
@@ -59,6 +63,7 @@ class Machine(Model):
 
     class Extra:
         service = False
+        custom_id = True
 
     class Meta:
         db_table = "machine"
@@ -73,6 +78,7 @@ class Unit(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "unit"
@@ -86,6 +92,7 @@ class Node(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "node"
@@ -97,6 +104,7 @@ class Composition(Model):
 
     class Extra:
         service = True
+        custom_id = False
 
     class Meta:
         db_table = "composition"
@@ -108,6 +116,7 @@ class RequiredTools(Model):
 
     class Extra:
         service = True
+        custom_id = False
 
     class Meta:
         db_table = "requiredtools"
@@ -132,6 +141,7 @@ class Shop(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "shop"
@@ -145,6 +155,7 @@ class Employee(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "employee"
@@ -159,6 +170,7 @@ class Customer(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "customer"
@@ -170,6 +182,7 @@ class Warranty(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "warranty"
@@ -181,6 +194,7 @@ class OrderType(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "ordertype"
@@ -197,6 +211,7 @@ class Orders(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "orders"
@@ -210,6 +225,7 @@ class Shipment(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "shipment"
@@ -221,6 +237,7 @@ class Roles(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "roles"
@@ -234,6 +251,7 @@ class Users(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "users"
@@ -243,8 +261,10 @@ class UserRoles(Model):
     id = AutoField(primary_key=True)
     id_user = ForeignKey(Users, on_delete=CASCADE, db_column='id_user')
     id_roles = ForeignKey(Roles, on_delete=CASCADE, db_column='id_roles')
+
     class Extra:
         service = True
+        custom_id = False
 
     class Meta:
         db_table = "userroles"
@@ -261,6 +281,7 @@ class RepairAppl(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "repairappl"
