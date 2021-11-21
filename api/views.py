@@ -37,7 +37,8 @@ class SelectView(APIView):
         data = json.loads(request.body) if request.body else None
         fields = data.get("fields")
 
-        objects = serializer(model.objects.all(), many=True).data
+        objects = model.objects.all().filter(id__lte=3)
+        print(objects)
         if fields and len(fields) > 0:
             fields.append("id")
             for ent in objects:

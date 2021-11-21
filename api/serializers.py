@@ -6,9 +6,9 @@ from .models import *
 from rest_framework import serializers
 
 
-class UnitSerializer(ModelSerializer):
+class ToolSerializer(ModelSerializer):
     class Meta:
-        model = Unit
+        model = Tool
         fields = "__all__"
 
 
@@ -18,9 +18,20 @@ class MachineTypeSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class ComponentSerializer(ModelSerializer):
+class MachineSerializer(ModelSerializer):
+    tools = ToolSerializer(many=True)
+    id_machinetype = MachineTypeSerializer()
+
     class Meta:
-        model = Component
+        model = Machine
+        fields = '__all__'
+
+
+class UnitSerializer(ModelSerializer):
+    id_machine = MachineSerializer()
+
+    class Meta:
+        model = Unit
         fields = "__all__"
 
 
@@ -30,21 +41,17 @@ class ComponentTypeSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class ToolSerializer(ModelSerializer):
+class ComponentSerializer(ModelSerializer):
+    id_componenttype = ComponentTypeSerializer()
+
     class Meta:
-        model = Tool
+        model = Component
         fields = "__all__"
 
 
-class MachineSerializer(ModelSerializer):
-    tools = ToolSerializer(many=True)
-
-    class Meta:
-        model = Machine
-        fields = '__all__'
-
-
 class NodeSerializer(ModelSerializer):
+    id_machine = MachineSerializer()
+
     class Meta:
         model = Node
         fields = "__all__"
@@ -69,12 +76,15 @@ class ShopTypeSerializer(ModelSerializer):
 
 
 class ShopSerializer(ModelSerializer):
+    id_ShopType = ShopTypeSerializer()
+
     class Meta:
         model = Shop
         fields = "__all__"
 
 
 class EmployeeSerializer(ModelSerializer):
+    id_Shop = ShopSerializer()
     class Meta:
         model = Employee
         fields = "__all__"
@@ -99,18 +109,25 @@ class OrderTypeSerializer(ModelSerializer):
 
 
 class OrdersSerializer(ModelSerializer):
+    id_Employee = EmployeeSerializer()
+    id_Warranty = WarrantySerializer()
+    id_Customer = CustomerSerializer()
+    id_OrderType = OrderTypeSerializer()
+
     class Meta:
         model = Orders
         fields = "__all__"
 
 
 class ShipmentSerializer(ModelSerializer):
+    id_Customer = CustomerSerializer()
     class Meta:
         model = Shipment
         fields = "__all__"
 
 
 class UsersSerializer(ModelSerializer):
+    id_Customer = CustomerSerializer()
     class Meta:
         model = Users
         fields = "__all__"
@@ -129,8 +146,24 @@ class UserRolesSerializer(ModelSerializer):
 
 
 class RepairApplSerializer(ModelSerializer):
+    id_Customer = CustomerSerializer()
+    id_Machine = MachineSerializer()
     class Meta:
         model = RepairAppl
+        fields = "__all__"
+
+
+class ProviderSerializer(ModelSerializer):
+    class Meta:
+        model = Provider
+        fields = "__all__"
+
+
+class ProductTypeSerializer(ModelSerializer):
+    id_Provider = ProviderSerializer()
+
+    class Meta:
+        model = ProductType
         fields = "__all__"
 
 
@@ -154,5 +187,7 @@ name_to_serializer = {
     "roles": RolesSerializer,
     "users": UsersSerializer,
     "userroles": UserRolesSerializer,
-    "repairappl": RepairApplSerializer
+    "repairappl": RepairApplSerializer,
+    "provider": ProviderSerializer,
+    "producttype": ProductTypeSerializer
 }

@@ -25,13 +25,23 @@ class ComponentType(Model):
         db_table = "componenttype"
 
 
+class Provider(Model):
+    id = AutoField(primary_key=True)
+    name = CharField(max_length=255)
+    address = CharField(max_length=255)
+
+    class Extra:
+        service = False
+        custom_id = False
+
+
 class Component(Model):
     id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     quantity = IntegerField()
     price = IntegerField()
-    provider = IntegerField()
-    component_type = ForeignKey(ComponentType, on_delete=CASCADE, db_column='id_componenttype')
+    id_componenttype = ForeignKey(ComponentType, on_delete=CASCADE, db_column='id_componenttype')
+
 
     class Extra:
         service = False
@@ -89,6 +99,7 @@ class Node(Model):
     name = CharField(max_length=255)
     blueprint = CharField(max_length=255)
     id_machine = ForeignKey(Machine, on_delete=CASCADE, db_column='id_machine')
+    components = ManyToManyField(Component, through='Composition', through_fields=['id_node', 'id_component'])
 
     class Extra:
         service = False
@@ -285,3 +296,13 @@ class RepairAppl(Model):
 
     class Meta:
         db_table = "repairappl"
+
+
+class ProductType(Model):
+    id = AutoField(primary_key=True)
+    name = CharField(max_length=255)
+    id_Provider = ForeignKey(Provider, on_delete=CASCADE, db_column='id_provider')
+
+    class Extra:
+        service = False
+        custom_id = False

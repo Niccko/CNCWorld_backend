@@ -8,8 +8,6 @@ from .serializers import *
 from django.db import connection
 
 
-
-
 def _dictfetchall(cursor):
     columns = [col[0] for col in cursor.description]
     return [
@@ -37,17 +35,23 @@ def get_row_desc(table_name):
     field_list = model._meta.get_fields()
     result = []
     for field in field_list:
-        if not isinstance(field, ManyToOneRel) and (model.Extra.custom_id | (field.name !="id")):
+        if not isinstance(field, ManyToOneRel) \
+                and not isinstance(field, ManyToManyRel) \
+                and (model.Extra.custom_id | (field.name != "id")):
             rel = field.related_model.__name__.lower() if field.related_model else ""
             many = isinstance(field, ManyToManyField)
             result.append({"column_name": field.name, "related_to": rel, "many": many})
     return result
 
 
+def apply_filter(objects, filter):
+    pass
+
+
 def resolve_object(model, data, obj=None):
+    if model.objects.filter(pk=data.get("id")):
+        raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
     if not obj:
-        # if model.objects.filter(pk=data["id"]):
-        #     raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
         obj = model()
     for key in data:
         field = model._meta.get_field(key)
