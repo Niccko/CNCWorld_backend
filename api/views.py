@@ -37,15 +37,15 @@ class SelectView(APIView):
         data = json.loads(request.body) if request.body else None
         fields = data.get("fields")
 
-        objects = model.objects.all().filter(id__lte=3)
-        print(objects)
+        objects = model.objects.all()
+        object_data = serializer(objects, many=True).data
         if fields and len(fields) > 0:
             fields.append("id")
-            for ent in objects:
+            for ent in object_data:
                 for key in list(ent.keys()):
                     if key not in fields:
                         del ent[key]
-        return JsonResponse(objects, safe=False)
+        return JsonResponse(object_data, safe=False)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
