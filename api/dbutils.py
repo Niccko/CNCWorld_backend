@@ -49,9 +49,9 @@ def apply_filter(objects, filter):
 
 
 def resolve_object(model, data, obj=None):
-    if model.objects.filter(pk=data.get("id")):
-        raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
     if not obj:
+        if model.objects.filter(pk=data.get("id")):
+            raise BadRequest(f"Object of type {model.__name__} with id={data['id']} already exists")
         obj = model()
     for key in data:
         field = model._meta.get_field(key)
