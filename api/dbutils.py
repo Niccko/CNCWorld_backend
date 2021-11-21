@@ -65,6 +65,7 @@ def resolve_object(model, data, obj=None):
             else:
                 data[key] = remote_model.objects.get(pk=data[key])
             if isinstance(field, ManyToManyField):
+                obj.save()
                 getattr(obj, key).set(data[key])
                 continue
         setattr(obj, key, data[key])
