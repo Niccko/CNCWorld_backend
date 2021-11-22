@@ -51,6 +51,7 @@ class ComponentSerializer(ModelSerializer):
 
 class NodeSerializer(ModelSerializer):
     id_machine = MachineSerializer()
+    components = ComponentSerializer(many=True)
 
     class Meta:
         model = Node
@@ -85,6 +86,7 @@ class ShopSerializer(ModelSerializer):
 
 class EmployeeSerializer(ModelSerializer):
     id_Shop = ShopSerializer()
+
     class Meta:
         model = Employee
         fields = "__all__"
@@ -121,21 +123,24 @@ class OrdersSerializer(ModelSerializer):
 
 class ShipmentSerializer(ModelSerializer):
     id_Customer = CustomerSerializer()
+
     class Meta:
         model = Shipment
-        fields = "__all__"
-
-
-class UsersSerializer(ModelSerializer):
-    id_Customer = CustomerSerializer()
-    class Meta:
-        model = Users
         fields = "__all__"
 
 
 class RolesSerializer(ModelSerializer):
     class Meta:
         model = Roles
+        fields = "__all__"
+
+
+class UsersSerializer(ModelSerializer):
+    id_customer = CustomerSerializer()
+    roles = RolesSerializer(many=True)
+
+    class Meta:
+        model = Users
         fields = "__all__"
 
 
@@ -148,6 +153,7 @@ class UserRolesSerializer(ModelSerializer):
 class RepairApplSerializer(ModelSerializer):
     id_Customer = CustomerSerializer()
     id_Machine = MachineSerializer()
+
     class Meta:
         model = RepairAppl
         fields = "__all__"
