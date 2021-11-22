@@ -34,6 +34,8 @@ class Provider(Model):
         service = False
         custom_id = False
 
+    class Meta:
+        db_table = "provider"
 
 class Component(Model):
     id = AutoField(primary_key=True)
@@ -302,6 +304,9 @@ class ProductType(Model):
     id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     id_Provider = ForeignKey(Provider, on_delete=CASCADE, db_column='id_provider')
+
+    class Meta:
+        db_table = "productType"
 
     class Extra:
         service = False
