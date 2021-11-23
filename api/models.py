@@ -112,7 +112,7 @@ class Node(Model):
 
 
 class Composition(Model):
-    id_component = ForeignKey(Component, on_delete=CASCADE)
+    id_component = ForeignKey(Component, on_delete=CASCADE, db_column='id_component')
     id_node = ForeignKey(Node, on_delete=CASCADE, db_column='id_node')
 
     class Extra:
