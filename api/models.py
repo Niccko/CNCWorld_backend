@@ -141,6 +141,7 @@ class ShopType(Model):
 
     class Extra:
         service = False
+        custom_id = False
 
     class Meta:
         db_table = "shoptype"
