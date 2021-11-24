@@ -307,7 +307,7 @@ class ProductType(Model):
     id_Provider = ForeignKey(Provider, on_delete=CASCADE, db_column='id_provider')
 
     class Meta:
-        db_table = "productType"
+        db_table = "producttype"
 
     class Extra:
         service = False
