@@ -305,6 +305,7 @@ class ProductType(Model):
     id = AutoField(primary_key=True)
     name = CharField(max_length=255)
     id_Provider = ForeignKey(Provider, on_delete=CASCADE, db_column='id_provider')
+    id_Component = ForeignKey(Component, on_delete=CASCADE, db_column='id_component')
 
     class Meta:
         db_table = "producttype"
